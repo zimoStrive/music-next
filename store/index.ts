@@ -1,18 +1,21 @@
-import { configureStore } from "@reduxjs/toolkit";
-import { createWrapper } from "next-redux-wrapper";
-import homeReducer from "./modules/home";
+"use client";
+import { combineReducers, configureStore } from "@reduxjs/toolkit";
+import counterReducer from "./modules/counter";
+import { Provider } from "react-redux";
 
-const store = configureStore({
-  reducer: {
-    home: homeReducer,
-  },
-  devTools: true,
+const rootReducer = combineReducers({
+  counter: counterReducer,
+  //add all your reducers here
 });
 
-const makeStore = () => store;
+export const store = configureStore({
+  reducer: rootReducer,
+});
 
-export const wrapper = createWrapper(makeStore);
+export function ReduxProvider({ children }) {
+  return <Provider store={store}>{children}</Provider>;
+}
 
-// export default store;
-export type AppStore = ReturnType<typeof makeStore>;
-export type AppState = ReturnType<AppStore["getState"]>;
+export type RootState = ReturnType<typeof store.getState>;
+
+export type AppDispatch = typeof store.dispatch;

@@ -1,7 +1,7 @@
+// app layout 文件
 import type { Metadata } from "next";
 import { Provider } from "react-redux";
-import { wrapper } from "@/store/index";
-// import store from "@/store/index";
+import ReduxProvider from "@/store";
 
 // layout 组件
 import NavBar from "@/components/nav-bar";
@@ -23,11 +23,10 @@ export default function RootLayout({
 }: Readonly<{
   children: React.ReactNode;
 }>) {
-  const { store } = wrapper.useWrappedStore();
   return (
     <html lang="en">
       <body>
-        <Provider store={store}>
+        <Provider store={ReduxProvider.store}>
           <NavBar />
           {children}
           <Footer />
