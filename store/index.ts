@@ -1,21 +1,14 @@
-"use client";
-import { combineReducers, configureStore } from "@reduxjs/toolkit";
-import counterReducer from "./modules/counter";
-import { Provider } from "react-redux";
+import { configureStore } from "@reduxjs/toolkit";
+import homeReducer from "./modules/home";
 
-const rootReducer = combineReducers({
-  counter: counterReducer,
-  //add all your reducers here
-});
+export const makeStore = () => {
+  return configureStore({
+    reducer: {
+      home: homeReducer,
+    },
+  });
+};
 
-export const store = configureStore({
-  reducer: rootReducer,
-});
-
-export function ReduxProvider({ children }) {
-  return <Provider store={store}>{children}</Provider>;
-}
-
-export type RootState = ReturnType<typeof store.getState>;
-
-export type AppDispatch = typeof store.dispatch;
+export type AppStore = ReturnType<typeof makeStore>;
+export type RootState = ReturnType<AppStore["getState"]>;
+export type AppDispatch = AppStore["dispatch"];

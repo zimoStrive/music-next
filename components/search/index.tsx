@@ -4,8 +4,10 @@ import React, { memo, useState } from "react";
 import classNames from "classnames";
 import styles from "./index.module.scss";
 import type { KeyboardEvent } from "react";
+import { useRouter } from "next/navigation";
 
 const Search = memo((props) => {
+  const router = useRouter();
   const { searchData } = props;
   const [inputFocus, setInputFocus] = useState<boolean>(false);
   const [placeholder, setPlaceholder] = useState(
@@ -26,7 +28,9 @@ const Search = memo((props) => {
   };
 
   const handleItemClick = (val: string) => {
-    console.log(val);
+    setPlaceholder(val);
+    // 跳转到搜索页面
+    router.push(`/search/?q=${val}`);
   };
   return (
     <div className={styles["search"]}>
@@ -50,11 +54,14 @@ const Search = memo((props) => {
         <div className={styles.shadow}></div>
         <h2>热门搜索</h2>
         <ul>
-          <li>123</li>
-          <li>123</li>
-          <li>12</li>
-          <li>1</li>
-          <li>123</li>
+          {searchData?.configKey?.map((item, index) => (
+            <li
+              onMouseDown={() => handleItemClick(item[index + 1])}
+              key={item[index + 1]}
+            >
+              {item[index + 1]}
+            </li>
+          ))}
         </ul>
       </div>
     </div>

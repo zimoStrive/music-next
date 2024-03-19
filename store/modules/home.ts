@@ -1,5 +1,3 @@
-"use client";
-
 import { ISearchSuggest, getSearchSuggestData } from "@/service/home";
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 
@@ -11,25 +9,24 @@ const homeSlice = createSlice({
   name: "home",
   initialState: {
     navbar: {},
-    count: 10,
   } as IInialState,
-  // reducers: {
-  //   changeNavbarAction(state, action) {
-  //     state.navbar = action.payload;
-  //   },
-  // },
-  // extraReducers(builder) {},
+  reducers: {
+    changeNavbarAction(state, { payload }) {
+      state.navbar = payload;
+    },
+  },
 });
 
 // // 异步action
-// export const fetchHomeInfoDataAction = createAsyncThunk(
-//   "fetchHomeInfoData",
-//   async (params: any, { dispatch }) => {
-//     const searchSuggestData = await getSearchSuggestData();
-//     dispatch(homeSlice.actions.changeNavbarAction(searchSuggestData.data));
-//   }
-// );
+export const fetchHomeInfoDataAction = createAsyncThunk(
+  "fetchHomeInfoData",
+  async (params: any, { dispatch }) => {
+    const searchSuggestData = await getSearchSuggestData();
+    console.log(searchSuggestData, "123");
+    dispatch(changeNavbarAction(searchSuggestData.data));
+  }
+);
 
 // // 同步action
-// export const { changeNavbarAction } = homeSlice.actions;
+export const { changeNavbarAction } = homeSlice.actions;
 export default homeSlice.reducer;

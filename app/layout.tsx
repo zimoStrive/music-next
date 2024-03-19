@@ -1,7 +1,6 @@
 // app layout 文件
 import type { Metadata } from "next";
-import { Provider } from "react-redux";
-import ReduxProvider from "@/store";
+import StoreProvider from "./StoreProvider";
 
 // layout 组件
 import NavBar from "@/components/nav-bar";
@@ -26,11 +25,11 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body>
-        <Provider store={ReduxProvider.store}>
+        <StoreProvider>
           <NavBar />
           {children}
           <Footer />
-        </Provider>
+        </StoreProvider>
       </body>
     </html>
   );
