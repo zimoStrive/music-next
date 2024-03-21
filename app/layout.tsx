@@ -1,5 +1,6 @@
 // app layout 文件
 import type { Metadata } from "next";
+import { AntdRegistry } from "@ant-design/nextjs-registry";
 import StoreProvider from "./StoreProvider";
 
 // layout 组件
@@ -25,11 +26,13 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body>
-        <StoreProvider>
-          <NavBar />
-          {children}
-          <Footer />
-        </StoreProvider>
+        <AntdRegistry>
+          <StoreProvider>
+            <NavBar />
+            {children}
+            <Footer />
+          </StoreProvider>
+        </AntdRegistry>
       </body>
     </html>
   );

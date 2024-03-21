@@ -23,7 +23,7 @@ const NavBar = memo(() => {
       const localNavbar = localStorage.getItem("navbar") || "{}";
       setNewNavBar(JSON.parse(localNavbar));
     }
-  });
+  }, []);
 
   return (
     <div className={styles.navbar}>
