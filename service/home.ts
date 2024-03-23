@@ -31,11 +31,6 @@ export const getSearchSuggestData = () => {
   return hyRequest.get<ResultData<ISearchSuggest>>("/searchsuggest/get");
 };
 
-// 获取轮播图数据
-export const getIpBannerData = () => {
-  return hyRequest.get<ResultData<any>>("/product/ipbanner");
-};
-
 // 获取编辑推荐商品
 export const getHotProductV2Data = () => {
   return hyRequest.get<ResultData<IProduct>>("/hotproduct_v2/gets");

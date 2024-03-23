@@ -1,13 +1,15 @@
 import {
   ISearchSuggest,
   getSearchSuggestData,
-  getIpBannerData,
+  getHomeInfoData,
 } from "@/service/home";
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 
 interface IInialState {
   navbar: ISearchSuggest;
   banners: any[];
+  categorys: any[];
+  recommends: any[];
 }
 
 const homeSlice = createSlice({
@@ -15,13 +17,17 @@ const homeSlice = createSlice({
   initialState: {
     navbar: {},
     banners: [],
+    categorys: [],
+    recommends: [],
   } as IInialState,
   reducers: {
     changeNavbarAction(state, { payload }) {
       state.navbar = payload;
     },
     changeBannersAction(state, { payload }) {
-      state.banners = payload;
+      state.banners = payload.banners;
+      state.categorys = payload.categorys;
+      state.recommends = payload.recommends;
     },
   },
 });
@@ -32,8 +38,8 @@ export const fetchHomeInfoDataAction = createAsyncThunk(
   async (params: any, { dispatch }) => {
     const searchSuggestData = await getSearchSuggestData();
     dispatch(changeNavbarAction(searchSuggestData.data));
-    const ipBannerData = await getIpBannerData();
-    dispatch(changeBannersAction(ipBannerData.data.banners));
+    const homeInfoData = await getHomeInfoData();
+    dispatch(changeBannersAction(homeInfoData.data));
   }
 );
 
