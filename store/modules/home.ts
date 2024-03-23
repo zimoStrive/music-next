@@ -1,33 +1,35 @@
 import {
   ISearchSuggest,
+  IHomeInfo,
+  IProduct,
   getSearchSuggestData,
   getHomeInfoData,
+  getHotProductV2Data,
 } from "@/service/home";
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 
 interface IInialState {
   navbar: ISearchSuggest;
-  banners: any[];
-  categorys: any[];
-  recommends: any[];
+  homeInfo: IHomeInfo;
+  hotProduct: IProduct;
 }
 
 const homeSlice = createSlice({
   name: "home",
   initialState: {
     navbar: {},
-    banners: [],
-    categorys: [],
-    recommends: [],
+    homeInfo: {},
+    hotProductData: {},
   } as IInialState,
   reducers: {
     changeNavbarAction(state, { payload }) {
       state.navbar = payload;
     },
     changeBannersAction(state, { payload }) {
-      state.banners = payload.banners;
-      state.categorys = payload.categorys;
-      state.recommends = payload.recommends;
+      state.homeInfo = payload;
+    },
+    changeHotProductAction(state, { payload }) {
+      state.hotProductData = payload;
     },
   },
 });
@@ -40,9 +42,15 @@ export const fetchHomeInfoDataAction = createAsyncThunk(
     dispatch(changeNavbarAction(searchSuggestData.data));
     const homeInfoData = await getHomeInfoData();
     dispatch(changeBannersAction(homeInfoData.data));
+    const hotProductData = await getHotProductV2Data();
+    dispatch(changeHotProductAction(hotProductData.data));
   }
 );
 
 // // 同步action
-export const { changeNavbarAction, changeBannersAction } = homeSlice.actions;
+export const {
+  changeNavbarAction,
+  changeBannersAction,
+  changeHotProductAction,
+} = homeSlice.actions;
 export default homeSlice.reducer;

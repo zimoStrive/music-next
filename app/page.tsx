@@ -10,17 +10,23 @@ import TopSwiper from "@/components/topSwiper";
 import TabCategory from "@/components/tab-category";
 import Recommend from "@/components/Recommend";
 import SectionTitle from "@/components/section-title";
+import GridView from "@/components/grid-view";
+import DigitalPanel from "@/components/digital-panel";
 
 const Home = memo(() => {
   // 获取数据
-  const { banners, categorys, recommends } = useSelector(
-    (state: any) => ({
-      banners: state.home.banners,
-      categorys: state.home.categorys,
-      recommends: state.home.recommends,
-    }),
-    shallowEqual
-  );
+  const { banners, categorys, recommends, hotProduct, digitalData } =
+    useSelector(
+      (state: any) => ({
+        banners: state.home.homeInfo.banners,
+        categorys: state.home.homeInfo.categorys,
+        recommends: state.home.homeInfo.recommends,
+        hotProduct: state.home.hotProductData.hotProduct,
+        digitalData: state.home.homeInfo.digitalData,
+      }),
+      shallowEqual
+    );
+
   // 派发数据
   const dispatch = useDispatch();
   useEffect(() => {
@@ -34,6 +40,8 @@ const Home = memo(() => {
 
       <div className={classNames("wrapper", styles.content)}>
         <SectionTitle title="编辑推荐" />
+        <GridView products={hotProduct} />
+        <DigitalPanel itemData={digitalData}></DigitalPanel>
       </div>
     </div>
   );

@@ -1,4 +1,4 @@
-import hyRequest from "./index";
+import httpRequest from "./index";
 
 import type { ResultData } from "./index";
 
@@ -23,22 +23,22 @@ export interface IHomeInfo {
 
 // 获取首页其它信息
 export const getHomeInfoData = () => {
-  return hyRequest.get<ResultData<IHomeInfo>>("/home/info");
+  return httpRequest.get<ResultData<IHomeInfo>>("/home/info");
 };
 
 // 获取搜索推荐
 export const getSearchSuggestData = () => {
-  return hyRequest.get<ResultData<ISearchSuggest>>("/searchsuggest/get");
+  return httpRequest.get<ResultData<ISearchSuggest>>("/searchsuggest/get");
 };
 
 // 获取编辑推荐商品
 export const getHotProductV2Data = () => {
-  return hyRequest.get<ResultData<IProduct>>("/hotproduct_v2/gets");
+  return httpRequest.get<ResultData<IProduct>>("/hotproduct_v2/gets");
 };
 
 // 获取所有的热门商品
 export const getAllProductData = () => {
-  return hyRequest.get<ResultData<IProduct>>(
+  return httpRequest.get<ResultData<IProduct>>(
     "/allProduct/gets?limit=60&offset=0"
   );
 };
