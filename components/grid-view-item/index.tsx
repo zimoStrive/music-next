@@ -42,7 +42,7 @@ const GridViewItem = memo((props: IProps) => {
           <span className={styles.label}>{products.couponLabelDesc}</span>
         )}
         {/* Link */}
-        <Link href={`/detail?id${products.id}`} className={styles.name}>
+        <Link href={`/good-detail?id${products.id}`} className={styles.name}>
           {products.name}
         </Link>
       </div>

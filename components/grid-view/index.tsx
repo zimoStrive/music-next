@@ -9,7 +9,7 @@ const GridView = memo((props) => {
   const router = useRouter();
 
   function handleItemClick(product) {
-    router.push(`/detail/?id=${product.id}&q=${product.name}`);
+    router.push(`/good-detail/?id=${product.id}&q=${product.name}`);
   }
   return (
     <div className={styles["grid-view"]}>

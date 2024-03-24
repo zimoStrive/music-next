@@ -15,17 +15,24 @@ import DigitalPanel from "@/components/digital-panel";
 
 const Home = memo(() => {
   // 获取数据
-  const { banners, categorys, recommends, hotProduct, digitalData } =
-    useSelector(
-      (state: any) => ({
-        banners: state.home.homeInfo.banners,
-        categorys: state.home.homeInfo.categorys,
-        recommends: state.home.homeInfo.recommends,
-        hotProduct: state.home.hotProductData.hotProduct,
-        digitalData: state.home.homeInfo.digitalData,
-      }),
-      shallowEqual
-    );
+  const {
+    banners,
+    categorys,
+    recommends,
+    hotProduct,
+    digitalData,
+    allProducts,
+  } = useSelector(
+    (state: any) => ({
+      banners: state.home.homeInfo.banners,
+      categorys: state.home.homeInfo.categorys,
+      recommends: state.home.homeInfo.recommends,
+      hotProduct: state.home.hotProductData.hotProduct,
+      digitalData: state.home.homeInfo.digitalData,
+      allProducts: state.home.allProduct.allProduct,
+    }),
+    shallowEqual
+  );
 
   // 派发数据
   const dispatch = useDispatch();
@@ -42,6 +49,8 @@ const Home = memo(() => {
         <SectionTitle title="编辑推荐" />
         <GridView products={hotProduct} />
         <DigitalPanel itemData={digitalData}></DigitalPanel>
+        <SectionTitle title="热门商品"></SectionTitle>
+        <GridView products={allProducts}></GridView>
       </div>
     </div>
   );

@@ -1,3 +1,4 @@
+import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import {
   ISearchSuggest,
   IHomeInfo,
@@ -5,13 +6,14 @@ import {
   getSearchSuggestData,
   getHomeInfoData,
   getHotProductV2Data,
+  getAllProductData,
 } from "@/service/home";
-import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 
 interface IInialState {
   navbar: ISearchSuggest;
   homeInfo: IHomeInfo;
   hotProduct: IProduct;
+  allProducts: IProduct;
 }
 
 const homeSlice = createSlice({
@@ -20,6 +22,7 @@ const homeSlice = createSlice({
     navbar: {},
     homeInfo: {},
     hotProductData: {},
+    allProduct: {},
   } as IInialState,
   reducers: {
     changeNavbarAction(state, { payload }) {
@@ -30,6 +33,9 @@ const homeSlice = createSlice({
     },
     changeHotProductAction(state, { payload }) {
       state.hotProductData = payload;
+    },
+    changeAllProductDat(state, { payload }) {
+      state.allProduct = payload;
     },
   },
 });
@@ -44,6 +50,8 @@ export const fetchHomeInfoDataAction = createAsyncThunk(
     dispatch(changeBannersAction(homeInfoData.data));
     const hotProductData = await getHotProductV2Data();
     dispatch(changeHotProductAction(hotProductData.data));
+    const allProductData = await getAllProductData();
+    dispatch(changeAllProductDat(allProductData.data));
   }
 );
 
@@ -52,5 +60,6 @@ export const {
   changeNavbarAction,
   changeBannersAction,
   changeHotProductAction,
+  changeAllProductDat,
 } = homeSlice.actions;
 export default homeSlice.reducer;
