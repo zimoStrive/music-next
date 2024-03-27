@@ -1,5 +1,6 @@
 import httpRequest from "./request";
-let BASE_URL = "http://codercba.com:9060/music-next/api"; //  默认基础的URL
+export let BASE_URL = "http://codercba.com:9060/music-next/api"; //  默认基础的URL
+
 export interface ResultData<T> {
   code: number;
   data: T;

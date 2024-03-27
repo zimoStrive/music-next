@@ -1,3 +1,4 @@
+"use client";
 import React, { memo } from "react";
 import { Col, Row } from "antd";
 import classNames from "classnames";

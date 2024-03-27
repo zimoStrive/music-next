@@ -1,3 +1,4 @@
+"use client";
 import React, { memo } from "react";
 import GridViewItem from "@/components/grid-view-item";
 import { Row, Col } from "antd";

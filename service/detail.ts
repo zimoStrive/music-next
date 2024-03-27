@@ -1,4 +1,5 @@
 import httpRequest from "./index";
+import { BASE_URL } from "./index";
 
 import type { ResultData } from "./index";
 
@@ -15,4 +16,9 @@ export const getProductDetailData = (id: string) => {
   return httpRequest.get<ResultData<IDetailProduct>>(
     `/special/getdetail?specialTopicId=${id}`
   );
+};
+
+// fetch 服务器端渲染
+export const fetchProductDetailData = (id: string) => {
+  return BASE_URL + `/special/getdetail?specialTopicId=${id}`;
 };

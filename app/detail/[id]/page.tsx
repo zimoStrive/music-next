@@ -1,22 +1,20 @@
-"use client";
-import React, { memo, useEffect } from "react";
+import React, { memo } from "react";
 import classNames from "classnames";
 import Image from "next/image";
 import Link from "next/link";
-import { fetchDetailProductsDataAction } from "@/store/modules/detail";
+import { fetchProductDetailData } from "@/service/detail";
 import styles from "./index.module.scss";
-import { useDispatch, useSelector } from "react-redux";
 import GridView from "@/components/grid-view";
 
-const Detail = memo(({ params }) => {
-  // 派发数据
-  const dispatch = useDispatch();
-  useEffect(() => {
-    dispatch(fetchDetailProductsDataAction(params.id));
-  }, [dispatch]);
+async function getDetailData(id) {
+  const res = await fetch(fetchProductDetailData(id));
+  return res.json();
+}
 
-  // 获取数据
-  const detailData = useSelector((state) => state.detail.detailProducts);
+const Detail = memo(async ({ params }) => {
+  // 派发数据
+  const res = await getDetailData(params.id);
+  let detailData = res.data;
 
   return (
     <div className={styles.detail}>

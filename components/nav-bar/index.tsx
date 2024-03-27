@@ -1,29 +1,17 @@
-"use client";
-import React, { memo, useEffect, useState } from "react";
+import React, { memo } from "react";
 import Link from "next/link";
 import classNames from "classnames";
 import styles from "./index.module.scss";
 import Search from "../search";
-import { shallowEqual, useSelector } from "react-redux";
+import { fetchSearchSuggestData } from "@/service/home";
 
-const NavBar = memo(() => {
-  // 获取Redux数据
-  const { navbar } = useSelector(
-    (state) => ({
-      navbar: state.home.navbar,
-    }),
-    shallowEqual
-  );
+async function getData(username: string) {
+  const res = await fetch(fetchSearchSuggestData());
+  return res.json();
+}
 
-  const [newNavBar, setNewNavBar] = useState(navbar);
-  useEffect(() => {
-    if (navbar?.configKey && navbar?.configKey.length) {
-      localStorage.setItem("navbar", JSON.stringify(navbar));
-    } else {
-      const localNavbar = localStorage.getItem("navbar") || "{}";
-      setNewNavBar(JSON.parse(localNavbar));
-    }
-  }, []);
+const NavBar = memo(async () => {
+  const { data } = await getData();
 
   return (
     <div className={styles.navbar}>
@@ -33,7 +21,7 @@ const NavBar = memo(() => {
           <h1 className={styles.title}>网易云音乐</h1>
         </div>
         <div className={styles["content-right"]}>
-          <Search searchData={newNavBar} />
+          <Search searchData={data} />
 
           <div className={styles["right-cart"]}>
             <a href="#" className={styles.cart}>

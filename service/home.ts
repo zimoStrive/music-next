@@ -1,3 +1,4 @@
+import { BASE_URL } from "./index";
 import httpRequest from "./index";
 
 import type { ResultData } from "./index";
@@ -41,4 +42,18 @@ export const getAllProductData = () => {
   return httpRequest.get<ResultData<IProduct>>(
     "/allProduct/gets?limit=60&offset=0"
   );
+};
+
+// 服务端接口
+export const fetchHomeInfoData = () => {
+  return BASE_URL + "/home/info";
+};
+export const fetchSearchSuggestData = () => {
+  return BASE_URL + "/searchsuggest/get";
+};
+export const fetchHotProductV2Data = () => {
+  return BASE_URL + "/hotproduct_v2/gets";
+};
+export const fetchAllProductData = () => {
+  return BASE_URL + "/allProduct/gets?limit=60&offset=0";
 };
